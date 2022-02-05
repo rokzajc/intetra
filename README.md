@@ -1,2 +1,2 @@
 # intetra
-Intragenomic oligonucleotide frequency analysis tool
+Command-line program intragenomic oligonucleotide frequency analysis.
