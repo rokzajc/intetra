@@ -1,0 +1,3 @@
+INTETRA - Intragenomic tetranucleotide analysis tool: Slice fasta file into smaller frames and calculate correlations between them based on their oligonucleotide frequences.
+
+
