@@ -16,7 +16,7 @@ parser.add_argument('-f', help='lenght of windows by which genome is sliced', ty
 parser.add_argument('-s', help='lenght by which a window is slid(Default=frame_len), can be expressed as ratio of -f argument(example: 0.5)', type=str, dest='slide_len', default='')
 parser.add_argument('--maxlen', help='maximum lenght of sliding windows(Default=frame_len)', type=int, dest='maxlen', default=-1)
 parser.add_argument('--minlen', help='minimum lenght of sliding windows(Default=frame_len)', dest='minlen', type=int, default=0)
-parser.add_argument('-m', help='method of calculating frequncies, multiple methods can be chosen (Default=zscr)', dest='method', type=str, nargs='*', default=['zscr'],choices=['zscr', 'fom', 'zom','som','rof'])
+parser.add_argument('-m', help='method of calculating frequncies, multiple methods can be chosen (Default=zscr)', dest='method', type=str, nargs='*', default=['zscr'],choices=['zscr', 'zom', 'rof'])
 parser.add_argument('-n', help='lenght of nucleotide words whose occurrences in the sequence are counted(default=4)', type=int, dest='nuc_number', nargs='*', default=[4])
 parser.add_argument('--increase_slide', help='lenght by which the slide is increased, multiple lenghts can be chosen(default=slidelen)', type=int, dest='inc_sld', default=-1)
 parser.add_argument('--blockcorr', help='turn off calculation of correlations between windows', dest='blockcorr', action='store_true')
