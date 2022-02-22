@@ -25,16 +25,16 @@ kompl=[]
 def naredi_kompl(nukl):
     try:
         for i in range(nukl):
-            kompl.append(np.load(os.path.join(sys.path[0],'data',f'kompl{i}')))
+            kompl.append(np.load(os.path.join(sys.path[0],'programi_args','data',f'kompl{i}')))
     except FileNotFoundError:
         try:
-            os.mkdir(os.path.join(sys.path[0],'data'))
+            os.mkdir(os.path.join(sys.path[0],'programi_args','data'))
         except FileExistsError:
             pass
         for i in range(nukl):
             k=komplement(i+1)
             kompl.append(k)
-            np.save(os.path.join(sys.path[0],'data',f'kompl{i}'),k)
+            np.save(os.path.join(sys.path[0],'programi_args','data',f'kompl{i}'),k)
 
 #Seznam vseh možnih tetranukleotidov
 def komb(velikost,arr1=np.array([]),arr=np.array([]),baze=['A','C','G','T']):
@@ -51,18 +51,17 @@ vse_komb=[]
 def naredi_komb(nukl):
     try:
         for i in range(nukl):
-            vse_komb.append(np.load(os.path.join(sys.path[0],'data',f'vse_komb{i}')))
+            vse_komb.append(np.load(os.path.join(sys.path[0],'programi_args','data',f'vse_komb{i}')))
     except FileNotFoundError:
         try:
-            os.mkdir(os.path.join(sys.path[0],'data'))
+            os.mkdir(os.path.join(sys.path[0],'programi_args','data'))
         except FileExistsError:
             pass
         for i in range(nukl):
             k=komb(i+1).reshape(-1,i+1)
             vse_komb.append(k)
-            np.save(os.path.join(sys.path[0],'data',f'vse_komb{i}'),k)
+            np.save(os.path.join(sys.path[0],'programi_args','data',f'vse_komb{i}'),k)
 
-############################################
 def count(sekvenca,nukl=4):
     #sekvenca=np.concatenate((sekvenca,np.repeat('',nukl-1)))
     lenght=len(sekvenca)
@@ -113,7 +112,6 @@ def count(sekvenca,nukl=4):
                     continue
                 vse_frekv[i-1][mesto]+=naslednji_freq[i2]
     return [arr + arr[kompl[i]]for i, arr in enumerate(vse_frekv)]
-#############################################
 
 def count_bridge(sekvenca,mode=4):
     frekv_list=[]
