@@ -70,14 +70,14 @@ def komb(velikost,arr1=np.array([]),arr=np.array([])):
 mesta=[]
 def naredi_mesta(nukl):
     try:
-        mesta.append(np.load(os.path.join(sys.path[0],'data',f'mesta{nukl}')))
+        mesta.append(np.load(os.path.join(sys.path[0],'programi_args','data',f'mesta{nukl}')))
     except FileNotFoundError:
         try:
-            os.mkdir(os.path.join(sys.path[0],'data'))
+            os.mkdir(os.path.join(sys.path[0],'programi_args','data'))
         except FileExistsError:
             pass
         mesta.append(komb(nukl).astype(int).reshape(-1,nukl))
-        np.save(os.path.join(sys.path[0],'data',f'mesta{nukl}'),mesta[-1])
+        np.save(os.path.join(sys.path[0],'programi_args','data',f'mesta{nukl}'),mesta[-1])
 #mesta=komb(4).astype(int).reshape(256,4)
 
 def korelacije(z_score1,z_score2):
@@ -99,4 +99,3 @@ def korelacije2(z_score1,z_score2,nucl):
     imen=np.sum((z_score1-x_avg)*(z_score2-y_avg),axis=1)
     stev=(np.sum((z_score1-x_avg)**2,axis=1)*np.sum((z_score2-y_avg)**2,axis=1))**0.5
     return imen/stev
-
