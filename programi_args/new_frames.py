@@ -40,7 +40,7 @@ def main(bakterija,output,frame_len,read_by,slide_len,increase_slide,maxsplit,mi
         except FileExistsError:
             pass
         mapa=os.path.join(output,f'{win_len}b')
-        stevilo_oken1=len(sekvence_array)if len(sekvence_array)<=len(frekvence_slide[0])else len(frekvence_slide[0])
+        stevilo_oken1=len(sekvence_array)if blockfasta!=True and len(sekvence_array)<=len(frekvence_slide[0])else len(frekvence_slide[0])
         stevilo_oken=stevilo_oken1-stevilo_oken1%(win_len/read_by)
         mesta=np.arange(stevilo_oken).reshape(int((stevilo_oken*read_by)/(win_len)),int(win_len/read_by))
         if frame_len!=slide_len:
