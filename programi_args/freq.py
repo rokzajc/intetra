@@ -108,7 +108,7 @@ def count(sekvenca,nukl=4):
             for b in range(nukl-a):
                 zadnji[-1][nuc_to_index(sekvenca[-a-b:lenght-b])]+=1
         if len(frekv)!=4**nukl:
-            a,counts=np.unique(np.concatenate((besede_arr,vse_komb[nukl-1])),return_counts=True,axis=0)
+            zaporedja,counts=np.unique(np.concatenate((besede_arr,vse_komb[nukl-1])),return_counts=True,axis=0)
             zamik=0
             naslednji=np.array([])
             naslednji_freq=np.array([])
