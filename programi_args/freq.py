@@ -66,30 +66,53 @@ def count(sekvenca,nukl=4):
     #sekvenca=np.concatenate((sekvenca,np.repeat('',nukl-1)))
     lenght=len(sekvenca)
     list_arr=[]
+    naslednji=None
     ostanek=lenght%nukl
     for a in range(nukl):
         list_arr.append(np.array(sekvenca[a:lenght-ostanek-(nukl if a!=0 else 0)+a]).reshape(-1,nukl))
     for a in range(1,ostanek+1):
         list_arr.append(np.array(sekvenca[lenght-ostanek-nukl+a:lenght-ostanek+a]).reshape(1,nukl))
-    besede_arr,frekv=np.unique(np.concatenate(list_arr),return_counts=True,axis=0)
-    zadnji=[]
-    for a in range(nukl-1,0,-1):
-        zadnji.append(np.zeros(4**a).astype(int))
-        for b in range(nukl-a):
-            zadnji[-1][nuc_to_index(sekvenca[-a-b:lenght-b])]+=1
-    # Clean up counts of all 'N'
-    naslednji=None
-    if np.array_equal(vse_komb[nukl-1],besede_arr)==False:
-        zaporedja,lokacije,counts=np.unique(np.concatenate((besede_arr,vse_komb[nukl-1])),return_index=True,return_counts=True,axis=0)
-        zamik=0
-        len_frekv=len(frekv)
-        naslednji=np.array([])
-        naslednji_freq=np.array([])
-        for lokacija in np.argwhere(counts==1):
-            if lokacije[lokacija]>len_frekv-1:
-                frekv=np.insert(frekv,lokacija-zamik,0)
-                zaporedja=np.insert(zaporedja,lokacija-zamik,np.repeat([''],nukl),0)
-            else:
+    if lenght>((4**nukl)*5):
+        besede_arr,frekv=np.unique(np.concatenate(list_arr),return_counts=True,axis=0)
+        zadnji=[]
+        for a in range(nukl-1,0,-1):
+            zadnji.append(np.zeros(4**a).astype(int))
+            for b in range(nukl-a):
+                zadnji[-1][nuc_to_index(sekvenca[-a-b:lenght-b])]+=1
+        # Clean up counts of all 'N'
+        if np.array_equal(vse_komb[nukl-1],besede_arr)==False:
+            zaporedja,lokacije,counts=np.unique(np.concatenate((besede_arr,vse_komb[nukl-1])),return_index=True,return_counts=True,axis=0)
+            zamik=0
+            len_frekv=len(frekv)
+            naslednji=np.array([])
+            naslednji_freq=np.array([])
+            for lokacija in np.argwhere(counts==1):
+                if lokacije[lokacija]>len_frekv-1:
+                    frekv=np.insert(frekv,lokacija-zamik,0)
+                    zaporedja=np.insert(zaporedja,lokacija-zamik,np.repeat([''],nukl),0)
+                else:
+                    try:
+                        naslednji=np.concatenate((naslednji,zaporedja[lokacija-zamik])).reshape(-1,4)
+                    except:
+                        naslednji=zaporedja[lokacija-zamik]
+                    naslednji_freq=np.concatenate((naslednji_freq,frekv[lokacija-zamik]))
+                    zaporedja=np.delete(zaporedja,lokacija-zamik,0)
+                    frekv=np.delete(frekv,lokacija-zamik)
+                    zamik+=1
+    else:
+        besede_arr,frekv=np.unique(np.concatenate((vse_komb[nukl-1],np.concatenate(list_arr))),return_counts=True,axis=0)
+        frekv-=1
+        zadnji=[]
+        for a in range(nukl-1,0,-1):
+            zadnji.append(np.zeros(4**a).astype(int))
+            for b in range(nukl-a):
+                zadnji[-1][nuc_to_index(sekvenca[-a-b:lenght-b])]+=1
+        if len(frekv)!=4**nukl:
+            a,counts=np.unique(np.concatenate((besede_arr,vse_komb[nukl-1])),return_counts=True,axis=0)
+            zamik=0
+            naslednji=np.array([])
+            naslednji_freq=np.array([])
+            for lokacija in np.argwhere(counts==1):
                 try:
                     naslednji=np.concatenate((naslednji,zaporedja[lokacija-zamik])).reshape(-1,4)
                 except:
