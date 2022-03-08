@@ -9,7 +9,7 @@ from time import time
 from programi_args import freq, models, najdi
 
 parser = argparse.ArgumentParser(description='The program calculates oligonucleotide (dinucleotide, trinucleotide...) frequency, which is based on chosen statistical scores(ZOM, Z-scores, ROF), of selected DNA sequnces. The frequncies are then compared using pearson R correlation.')
-parser.add_argument('-i', help='folder where input fasta files are located (Default=<Current working directory>)', type=str, dest='input', default='' )
+parser.add_argument('-i', help='folder where input fasta files are located (Default=<Current working directory>). Fasta files must end with .fna or .fasta', type=str, dest='input', default='' )
 parser.add_argument('-o', help='Name of output CSV file', type=str, dest='output', default='Output')
 parser.add_argument('-m', help='method of calculating frequencies, multiple methods can be chosen (Default=zscr)', dest='method', type=str, nargs='*', default=['zscr'],choices=['zscr', 'zom','rof'])
 parser.add_argument('-n', help='lenght of nucleotide words whose occurrences in the sequence are counted(default=4), multiple can be chosen', type=int, dest='nuc_number', nargs='*', default=[4])
