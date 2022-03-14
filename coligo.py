@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #Author: Rok Zajc
-print('COLIGO - Oligonucleotide frequency comparison\n----------------------------------------------\nAuthor: Rok Zajc\n\n')
+print('COLIGO - Oligonucleotide frequency comparison\n---------------------------------------------\nAuthor: Rok Zajc\n\n')
 
 import argparse, os, numpy as np, re, pandas as pd
 from Bio import SeqIO
@@ -13,6 +13,7 @@ parser.add_argument('-i', help='folder where input fasta files are located (Defa
 parser.add_argument('-o', help='Name of output CSV file', type=str, dest='output', default='Output')
 parser.add_argument('-m', help='method of calculating frequencies, multiple methods can be chosen (Default=zscr)', dest='method', type=str, nargs='*', default=['zscr'],choices=['zscr', 'zom','rof'])
 parser.add_argument('-n', help='lenght of nucleotide words whose occurrences in the sequence are counted(default=4), multiple can be chosen', type=int, dest='nuc_number', nargs='*', default=[4])
+parser.add_argument('--join_multifasta', help='multifasta files will be joined in one sequence before analysed. ', dest='multifasta', action='store_true')
 args = parser.parse_args()
 
 methods_dic={'zscr': models.z_score,'zom': models.zom_score, 'rof': lambda seznam,nuc: seznam[nuc-1] }
@@ -25,12 +26,26 @@ names=[]
 for file in najdi.najdi_datoteke(os.path.join(os.getcwd(),args.input),'*.f*'):
     names.append(os.path.basename(file))
     sekvenca=''
+    dolzina=0
     with open(file) as f:
         for oznaka in SeqIO.parse(f, "fasta"):
-            sekvenca+=oznaka.seq.upper()
-    sekvenca_list=np.array(re.findall('.',str(sekvenca)))
-    frequncies.append([count/len(sekvenca_list) for count in freq.count(sekvenca_list,max(args.nuc_number))])
-    print(f'Aquired {najdi.slovar_stevil[max(args.nuc_number)]}nucleotide frequencies for {os.path.basename(file)}.')
+            if args.multifasta==False:
+                sekvenca_list=np.array(re.findall('.',str(oznaka.seq.upper())))
+                new_counts=freq.count(sekvenca_list,max(args.nuc_number))
+                dolzina+=len(sekvenca_list)
+                try:
+                    for i,vrednosti in enumerate(new_counts):
+                        counts[i]+=vrednosti
+                except:
+                    counts=new_counts
+            else:
+                sekvenca+=oznaka.seq.upper()
+    if args.multifasta==True:
+        sekvenca_list=np.array(re.findall('.',str(sekvenca)))
+        frequncies.append([count/len(sekvenca_list) for count in freq.count(sekvenca_list,max(args.nuc_number))])
+    else:
+        frequncies.append([count/dolzina for count in counts])
+    print(f'Counted {najdi.slovar_stevil[max(args.nuc_number)]}nucleotide word occurances for {os.path.basename(file)}.')
     #scores.append([[methods_dic[method](frequncies,nucl) for method in args.method]for nucl in args.nuc_number])
 df_list=[]
 df3=pd.DataFrame([[''],['']],index=['',''])
