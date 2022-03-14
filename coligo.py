@@ -30,7 +30,7 @@ for file in najdi.najdi_datoteke(os.path.join(os.getcwd(),args.input),'*.f*'):
             sekvenca+=oznaka.seq.upper()
     sekvenca_list=np.array(re.findall('.',str(sekvenca)))
     frequncies.append([count/len(sekvenca_list) for count in freq.count(sekvenca_list,max(args.nuc_number))])
-    print(f'Aqured {najdi.slovar_stevil[max(args.nuc_number)]}nucleotide frequencies for {os.path.basename(file)}.')
+    print(f'Aquired {najdi.slovar_stevil[max(args.nuc_number)]}nucleotide frequencies for {os.path.basename(file)}.')
     #scores.append([[methods_dic[method](frequncies,nucl) for method in args.method]for nucl in args.nuc_number])
 df_list=[]
 df3=pd.DataFrame([[''],['']],index=['',''])
