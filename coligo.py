@@ -31,6 +31,7 @@ for file in najdi.najdi_datoteke(os.path.join(os.getcwd(),args.input),'*.f*'):
     names.append(os.path.basename(file))
     sekvenca=''
     dolzina=0
+    counts=None
     with open(file) as f:
         for oznaka in SeqIO.parse(f, "fasta"):
             if args.multifasta==False:
