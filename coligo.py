@@ -18,6 +18,10 @@ args = parser.parse_args()
 
 methods_dic={'zscr': models.z_score,'zom': models.zom_score, 'rof': lambda seznam,nuc: seznam[nuc-1] }
 
+if max(args.nuc_number)>8:
+    print('Error: -n must not be bigger than 8')
+    quit()
+
 t1=time()
 print('Please wait...')
 freq.naredi_komb(max(args.nuc_number)),freq.naredi_kompl(max(args.nuc_number))
