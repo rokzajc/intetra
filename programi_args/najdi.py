@@ -21,7 +21,7 @@ def stevilo_nicle(num):
 
 slovar_stevil={1:'mono',2:'di',3:'tri',4:'tetra',5:'penta',6:'heksa', 7:'hepta',8:'octa'}
 method_names={'zscr':'z-score',
-'fom':'first order Markov chain frequncies',
-'som':'second order Markov chain frequncies',
-'zom':"zero'th order Markov chain frequncies",
+'fom':'first order Markov chain frequencies',
+'som':'second order Markov chain frequencies',
+'zom':"zero'th order Markov chain frequencies",
 'rof': 'relative oligonucleotide frequencies'}
