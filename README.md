@@ -28,7 +28,7 @@ After the installation the coligo.py and intetra.py scripts should be executable
 
 `intetra -i <inputfile.fna> -o <outputdirectory> -f 3000 -s 2000 -n 6 -m zscr zom --maxlen 300000 --minlen 30000 --autocoor --blockfasta`
 
-`coligo -i <inputdirectory> -o <outputfile> -n 4 5 -m zom zscr`
+`coligo -i <inputdirectory> -o <outputfile> -n 4 5 -m zom zscr -t upgma`
 
 
 ## REQIREMENTS
