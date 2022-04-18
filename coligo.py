@@ -84,11 +84,11 @@ for nucl in args.nuc_number:
                 tree=DistanceTreeConstructor().upgma(distMatrix)
             if tree_type=='nj':
                 tree=DistanceTreeConstructor().nj(distMatrix)
-            fig = plt.figure(figsize=(13, 5), dpi=100) # create figure & set the size 
-            matplotlib.rc('font', size=12)             # fontsize of the leaf and node labels 
-            matplotlib.rc('xtick', labelsize=10)       # fontsize of the tick labels
-            matplotlib.rc('ytick', labelsize=10)       # fontsize of the tick labels
-            #turtle_tree.ladderize()		   # optional way to reformat your tree 
+            fig = plt.figure(figsize=(13, 5), dpi=100) 
+            matplotlib.rc('font', size=12)             
+            matplotlib.rc('xtick', labelsize=10)       
+            matplotlib.rc('ytick', labelsize=10)       
+            #turtle_tree.ladderize()		   
             axes = fig.add_subplot(1, 1, 1)
             Phylo.draw(tree, axes=axes,do_show=False)
             fig.savefig(os.path.join(output_mapa,f'{nucl}{method}_{tree_type}_tree.png'))
