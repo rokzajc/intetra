@@ -17,13 +17,17 @@ parser.add_argument('-o', help='Name of output CSV file', type=str, dest='output
 parser.add_argument('-m', help='method of calculating frequencies, multiple methods can be chosen (Default=zscr)', dest='method', type=str, nargs='*', default=['zscr'],choices=['zscr', 'zom','rof'])
 parser.add_argument('-n', help='lenght of nucleotide words whose occurrences in the sequence are counted(default=4), multiple can be chosen', type=int, dest='nuc_number', nargs='*', default=[4])
 parser.add_argument('--join_multifasta', help='multifasta files will be joined in one sequence before analysed. ', dest='multifasta', action='store_true')
-parser.add_argument('-t, --tree', help='construct a tree, select a method', dest='tree', type=str, nargs='*', default=[None],choices=[None, 'upgma','nj'])
+parser.add_argument('-t', help='construct a tree, select a method', dest='tree', type=str, nargs='*', default=[None],choices=[None, 'upgma','nj'])
 args = parser.parse_args()
 
 methods_dic={'zscr': models.z_score,'zom': models.zom_score, 'rof': lambda seznam,nuc: seznam[nuc-1] }
 
 if max(args.nuc_number)>8:
     print('Error: -n must not be bigger than 8')
+    quit()
+
+if os.path.exists(os.path.join(os.getcwd(),args.input))!= True:
+    print('Error: input directory does not exist')
     quit()
 
 t1=time()
