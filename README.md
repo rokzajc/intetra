@@ -9,6 +9,9 @@ Using --autocorr argument will calculate the correlations between statistical sc
 Program compares the oligonucleotide composition of sequences in fasta files(located in current working directory or another directory). The oligonucleotide composition of different sequences is converted into chosen statistical score(-m argument: z-score, zero'th order Markov model, relative oligonucleotide frequncies) which are used for calculation of correlations between them. Using -n argument, the user can choose the lenght of oligonucleotide words that are counted.
 
 ## INSTALLATION
+The programs can be installed for easier acces in Linux, however they can be ran on other operating systems without instalation. Without installation programs must be ran as any python script:
+`python3 intetra.py -i <inputfile.fna> -f 5000 -n 2 -m zom`
+
 ### Linux:
 Download ZIP file and extract it anywhere. Open terminal in the directory which was created and run these commands:
 ```
