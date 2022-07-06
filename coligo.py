@@ -75,7 +75,7 @@ for nucl in args.nuc_number:
         if method == 'zscr' and nucl<3:
             continue
         df1=pd.DataFrame(index=['Method:','Counted:',''], data=[[najdi.method_names[method]],[f'{najdi.slovar_stevil[nucl]}nucleotides'],['']])
-        df2=pd.DataFrame(np.vstack((names,np.around(np.corrcoef(np.vstack([methods_dic[method](frequence,nucl) for frequence in frequncies])),3))),index=['']+names)
+        df2=pd.DataFrame(np.vstack((names,np.around(np.corrcoef(np.vstack([methods_dic[method](frequence,nucl) for frequence in frequncies])),5))),index=['']+names)
         df_list.append(pd.concat([df1, df2, df3]))
         print(f'Calculated correlations of oligonucleotide frequncies between sequences based on {najdi.slovar_stevil[nucl]}nucleotide {najdi.method_names[method]}.')
         for tree_type in args.tree:
